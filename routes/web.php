@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,6 +9,8 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('backend.app');
 })->name('admin');
-Route::get('/admin/tour', function () {
-    return view('backend.pages.tour.index');
-})->name('tour');
+// Route::get('/admin/tour', function () {
+//     return view('backend.pages.tour.index');
+// })->name('tour');
+
+Route::resource('tours', TourController::class);

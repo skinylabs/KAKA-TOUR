@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tour;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -12,7 +13,9 @@ class TourController extends Controller
      */
     public function index()
     {
-        //
+        $tours = Tour::all();
+
+        return view('backend.pages.tour.index', compact('tours'));
     }
 
     /**
@@ -20,7 +23,8 @@ class TourController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('backend.pages.tour.partials.create', compact('users'));
     }
 
     /**
@@ -28,7 +32,15 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        Tour::create($request->all());
+        return redirect()->route('tours.index')->with('success', 'Tour created successfully.');
     }
 
     /**
@@ -36,7 +48,7 @@ class TourController extends Controller
      */
     public function show(Tour $tour)
     {
-        //
+        return view('backend.pages.tour.partials.show', compact('tour'));
     }
 
     /**
@@ -44,7 +56,7 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-        //
+        return view('backend.pages.tour.partials.edit', compact('tour'));
     }
 
     /**
@@ -52,7 +64,15 @@ class TourController extends Controller
      */
     public function update(Request $request, Tour $tour)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $tour->update($request->all());
+        return redirect()->route('tours.index')->with('success', 'Tour updated successfully.');
     }
 
     /**
@@ -60,6 +80,7 @@ class TourController extends Controller
      */
     public function destroy(Tour $tour)
     {
-        //
+        $tour->delete();
+        return redirect()->route('tours.index')->with('success', 'Tour deleted successfully.');
     }
 }

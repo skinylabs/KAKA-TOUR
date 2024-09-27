@@ -13,7 +13,7 @@
                     ],
                     [
                         'label' => 'Tour',
-                        'route' => 'tour', // Pastikan ini adalah nama route yang benar
+                        'route' => 'tours.index',
                         'icon' => 'dashboard',
                     ],
                 ];
