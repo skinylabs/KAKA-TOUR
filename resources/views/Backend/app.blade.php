@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Laravel App</title>
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+    @vite('resources/js/datepicker.js')
+    @vite('resources/js/ui.js')
+
+
 </head>
 
 <body class="bg-gray-100">
@@ -21,6 +26,7 @@
             @yield('content')
         </div>
     </div>
+    @yield('script')
 
     <script>
         // Script untuk toggle sidebar dan dropdown menu

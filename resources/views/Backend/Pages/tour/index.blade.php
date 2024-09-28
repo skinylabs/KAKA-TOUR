@@ -8,7 +8,7 @@
                 <div class="text-sm sm:text-base ">
                     <ol class="list-none p-0 inline-flex space-x-2">
                         <li class="flex items-center">
-                            <a href="#" class="text-gray-600 hover:text-blue-500 transition-colors duration-300">KAKA
+                            <a href="/tours" class="text-gray-600 hover:text-blue-500 transition-colors duration-300">KAKA
                                 TOUR</a>
                             <p class="ml-2">/</p>
                         </li>
@@ -19,8 +19,7 @@
                 </div>
 
             </div>
-            <a href="{{ route('tours.create') }}"
-                class="h-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Tour</a>
+            <a href="{{ route('tours.create') }}" class="button-primary">Create New Tour</a>
         </div>
 
 
@@ -50,37 +49,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 1; $i <= 100; $i++)
-                        <tr class="border-dashed border-t border-gray-200">
-                            <td class="p-2">{{ $i }}</td>
-                            <td class="p-2">aaaaa</td>
-                            <td class="p-2">aaaaaa</td>
-                            <td class="p-2">aaaaa</td>
-                            <td class="p-2">aaaaaa</td>
-                            <td class=" p-2">
-                                <div class="flex justify-evenly">
-                                    <a href="#">View</a>
-                                    <a href="#">Edit</a>
-                                    <form action="#" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">Delete</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endfor
-                </tbody>
-
-                {{-- <tbody>
                     @foreach ($tours as $tour)
-                        <tr class="">
-                            <td class="border-dashed border-t border-gray-200 px-3">{{ $loop->iteration }}</td>
-                            <td class="border-dashed border-t border-gray-200">{{ $tour->name }}</td>
-                            <td class="border-dashed border-t border-gray-200">{{ $tour->start_date }}</td>
-                            <td class="border-dashed border-t border-gray-200">{{ $tour->end_date }}</td>
-                            <td class="border-dashed border-t border-gray-200">{{ $tour->user_id }}</td>
-                            <td class="border-dashed border-t border-gray-200 ">
+                        {{-- @for ($i = 1; $i <= 100; $i++) --}}
+                        <tr class="border-dashed border-t border-gray-200">
+                            <td class="p-2">{{ $loop->iteration }}</td>
+                            <td class="p-2">{{ $tour->name }}</td>
+                            <td class="p-2">{{ $tour->start_date }}</td>
+                            <td class="p-2">{{ $tour->end_date }}</td>
+                            <td class="p-2">{{ $tour->user->name }}</td>
+                            <td class=" p-2">
                                 <div class="flex justify-evenly">
                                     <a href="{{ route('tours.show', $tour->id) }}">View</a>
                                     <a href="{{ route('tours.edit', $tour->id) }}">Edit</a>
@@ -93,8 +70,10 @@
                                 </div>
                             </td>
                         </tr>
+                        {{-- @endfor --}}
                     @endforeach
-                </tbody> --}}
+                </tbody>
+
             </table>
         </div>
     @endsection
