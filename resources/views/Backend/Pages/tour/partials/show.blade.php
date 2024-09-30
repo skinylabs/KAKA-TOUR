@@ -3,7 +3,9 @@
 @section('content')
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-semibold text-slate-800">{{ $tour->name }}</h1>
+            <h1 class="text-2xl font-semibold text-slate-800">
+                {{ $tour->name }}
+            </h1>
 
             <div class="text-sm sm:text-base">
                 <ol class="list-none p-0 inline-flex space-x-2">
@@ -17,6 +19,7 @@
                     </li>
                 </ol>
             </div>
+
         </div>
         <div class="flex items-center space-x-4">
             <a href="{{ route('tours.transportations.create', $tour->id) }}"
@@ -31,7 +34,7 @@
     </div>
 
     <!-- Modal -->
-    <div id="importModal" class="fixed inset-0 flex items-center justify-center z-50 hidden" onclick="closeModal(event)">
+    <div id="importModal" class="fixed inset-0  items-center justify-center z-50 hidden" onclick="closeModal(event)">
         <div class="bg-white rounded-lg shadow-lg p-6" onclick="event.stopPropagation()">
             <h2 class="text-lg font-semibold mb-4">Pilih file untuk diimport</h2>
             <form id="importForm" action="{{ route('tours.transportations.import', $tour->id) }}" method="POST"
@@ -47,41 +50,62 @@
         </div>
     </div>
 
+    <!-- flash -->
     @if (session('success'))
         <div class="mt-4 bg-green-100 border border-green-400 text-green-700 p-4 rounded">
             {{ session('success') }}
         </div>
     @endif
 
-    <h2 class="mt-6">Transportasi</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Tipe Kendaraan</th>
-                <th>Nama Peserta</th>
-                <th>Kelompok</th>
-                <th>Nomor Kamar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($transportations->isEmpty())
-                <tr>
-                    <td colspan="4" class="text-center">Tidak ada data</td>
+    <div class="overflow-x-auto rounded-lg shadow overflow-y-auto relative h-[400px]">
+        <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative text-center">
+            <thead>
+                <tr class="bg-slate-200 sticky top-0 text-gray-600 font-bold text-sm uppercase">
+                    <th class="px-6 py-3 ">
+                        <span>No</span>
+                    </th>
+                    <th class="px-6 py-3 ">
+                        <span>Armada</span>
+                    </th>
+                    <th class="px-6 py-3 ">
+                        <span>Nama</span>
+                    </th>
+                    <th class="px-6 py-3 ">
+                        <span>Kelompok</span>
+                    </th>
+                    <th class="px-6 py-3 ">
+                        <span>Nomer Kamar</span>
+                    </th>
+                    <th class="px-6 py-3 ">
+                        <span>Action</span>
+                    </th>
                 </tr>
-            @else
-                @foreach ($transportations as $transportation)
+            </thead>
+            <tbody>
+                @if ($transportations->isEmpty())
                     <tr>
-                        <td>{{ $transportation->vehicle }}</td>
-                        <td>{{ $transportation->name }}</td>
-                        <td>{{ $transportation->group }}</td>
-                        <td>{{ $transportation->room_number }}</td>
+                        <td colspan="4" class="text-center">Tidak ada data</td>
                     </tr>
-                @endforeach
-            @endif
-        </tbody>
-    </table>
-
-
+                @else
+                    @foreach ($transportations as $transportation)
+                        <tr class="border-dashed border-t border-gray-200">
+                            <td class="p-2">{{ $loop->iteration }}</td>
+                            <td class="p-2">{{ $transportation->vehicle }}</td>
+                            <td class="p-2">{{ $transportation->name }}</td>
+                            <td class="p-2">{{ $transportation->group }}</td>
+                            <td class="p-2">{{ $transportation->room_number }}</td>
+                            <td class="p-2">
+                                <div class="flex justify-evenly">
+                                    <a href="{{ route('tours.edit', $tour->id) }}">Edit</a>
+                                    <button class="text-red-500 delete-btn" data-id="{{ $tour->id }}">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
 
     <script>
         function openModal() {

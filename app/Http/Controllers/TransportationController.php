@@ -13,11 +13,11 @@ class TransportationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Tour $tour)
     {
 
         $transportations = Transportation::all();
-        return view('backend.pages.tour.transportation.index', compact('transportations'));
+        return view('backend.pages.tour.transportation.index', compact('transportations', 'tour'));
     }
 
     /**
@@ -76,16 +76,17 @@ class TransportationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transportation $transportation)
+    public function edit(Tour $tour, Transportation $transportation)
     {
-        return view('backend.pages.tour.transportation.edit', compact('transportation'));
+        return view('backend.pages.tour.transportation.partials.edit', compact('transportation', 'tour'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transportation $transportation)
+    public function update(Request $request, Tour $tour, Transportation $transportation)
     {
+        // Validasi input
         $request->validate([
             'vehicle' => 'required|string',
             'name' => 'required|string',
@@ -93,17 +94,23 @@ class TransportationController extends Controller
             'room_number' => 'required|string',
         ]);
 
-        $transportation->update($request->all());
+        // Update data
+        $transportation->update([
+            'vehicle' => $request->vehicle,
+            'name' => $request->name,
+            'group' => $request->group,
+            'room_number' => $request->room_number,
+        ]);
 
-        return redirect()->route('transportations.index')->with('success', 'Transportasi berhasil diperbarui.');
+        return redirect()->route('tours.show', $tour->id)->with('success', 'Transportasi berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transportation $transportation)
+    public function destroy(Tour $tour, Transportation $transportation)
     {
         $transportation->delete();
-        return redirect()->route('transportations.index')->with('success', 'Transportasi berhasil dihapus.');
+        return redirect()->route('tours.show', $tour->id)->with('success', 'Transportasi berhasil dihapus.');
     }
 }

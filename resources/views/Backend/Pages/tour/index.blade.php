@@ -73,7 +73,7 @@
                 <h2 class="text-lg font-semibold mb-4">Apakah Anda yakin ingin menghapus data ini?</h2>
                 <div class="flex justify-end space-x-4">
                     <button id="cancel-btn" class="bg-gray-500 text-white px-4 py-2 rounded">Tidak</button>
-                    <form id="delete-form" method="POST">
+                    <form id="delete-form" method="POST" action="">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Ya</button>
@@ -88,7 +88,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Get modal elements
             const modal = document.getElementById('modal');
-            const modalContent = document.getElementById('modal-content');
             const deleteForm = document.getElementById('delete-form');
             const cancelBtn = document.getElementById('cancel-btn');
 

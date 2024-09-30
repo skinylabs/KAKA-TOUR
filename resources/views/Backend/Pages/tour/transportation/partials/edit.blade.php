@@ -1,35 +1,40 @@
-@extends('backend.app')
+@extends('Backend.app')
 
 @section('content')
     <h1>Edit Transportasi</h1>
-    <form action="{{ route('transportations.update', $transportation) }}" method="POST">
+
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <form action="{{ route('tours.transportations.update', [$tour->id, $transportation->id]) }}" method="POST">
         @csrf
         @method('PUT')
-        <div>
-            <label for="tour_id">Tur:</label>
-            <select name="tour_id" required>
-                @foreach ($tours as $tour)
-                    <option value="{{ $tour->id }}" {{ $tour->id == $transportation->tour_id ? 'selected' : '' }}>
-                        {{ $tour->tour_name }}</option>
-                @endforeach
-            </select>
+
+        <div class="mb-4">
+            <label for="vehicle" class="block text-gray-700">Tipe Kendaraan</label>
+            <input type="text" name="vehicle" id="vehicle" class="w-full p-2 border border-gray-300"
+                value="{{ old('vehicle', $transportation->vehicle) }}" required>
         </div>
-        <div>
-            <label for="vehicle_type">Jenis Kendaraan:</label>
-            <input type="text" name="vehicle_type" value="{{ $transportation->vehicle_type }}" required>
+
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700">Nama Peserta</label>
+            <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300"
+                value="{{ old('name', $transportation->name) }}" required>
         </div>
-        <div>
-            <label for="participant_name">Nama Peserta:</label>
-            <input type="text" name="participant_name" value="{{ $transportation->participant_name }}" required>
+
+        <div class="mb-4">
+            <label for="group" class="block text-gray-700">Kelompok</label>
+            <input type="text" name="group" id="group" class="w-full p-2 border border-gray-300"
+                value="{{ old('group', $transportation->group) }}" required>
         </div>
-        <div>
-            <label for="group">Kelompok:</label>
-            <input type="text" name="group" value="{{ $transportation->group }}" required>
+
+        <div class="mb-4">
+            <label for="room_number" class="block text-gray-700">Nomor Kamar</label>
+            <input type="text" name="room_number" id="room_number" class="w-full p-2 border border-gray-300"
+                value="{{ old('room_number', $transportation->room_number) }}" required>
         </div>
-        <div>
-            <label for="room_number">Nomor Kamar:</label>
-            <input type="text" name="room_number" value="{{ $transportation->room_number }}" required>
-        </div>
-        <button type="submit">Update</button>
+
+        <button type="submit" class="btn btn-primary">Update Transportasi</button>
     </form>
 @endsection

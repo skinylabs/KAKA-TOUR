@@ -1,5 +1,6 @@
     <?php
 
+    use App\Http\Controllers\HotelController;
     use App\Http\Controllers\TourController;
     use App\Http\Controllers\TransportationController;
     use Illuminate\Support\Facades\Route;
@@ -17,8 +18,11 @@
     // Route untuk Tour
     Route::resource('tours', TourController::class);
 
-    // Route untuk Transportation
-    Route::get('/tours/{tour}', [TourController::class, 'show'])->name('tours.show');
+    // Route untuk Transportation (CRUD via Resource Controller)
     Route::resource('tours.transportations', TransportationController::class);
 
+    // Route tambahan untuk Import Transportation
     Route::post('tours/{tour}/transportations/import', [TransportationController::class, 'import'])->name('tours.transportations.import');
+
+    // Route untuk Hotel
+    Route::resource('tours.hotels', HotelController::class);
