@@ -16,18 +16,18 @@ class Tour extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function transports()
-    // {
-    //     return $this->hasMany(Transport::class);
-    // }
+    public function transportations()
+    {
+        return $this->hasOne(Transportation::class);
+    }
 
-    // public function rundowns()
-    // {
-    //     return $this->hasMany(Rundown::class);
-    // }
+    //     public function hotel()
+    //     {
+    //         return $this->hasOne(Hotel::class);
+    //     }
 
-    // public function hotels()
-    // {
-    //     return $this->hasMany(Hotel::class);
-    // }
+    //     public function rundown()
+    //     {
+    //         return $this->hasOne(Rundown::class);
+    //     }
 }

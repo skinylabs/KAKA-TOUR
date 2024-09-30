@@ -7,7 +7,6 @@
     <title>My Laravel App</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-    @vite('resources/js/datepicker.js')
     @vite('resources/js/ui.js')
 
 

@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tours', function (Blueprint $table) {
+        Schema::create('transportations', function (Blueprint $table) {
             $table->id();
+            $table->string('vehicle');
             $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->unsignedBigInteger('user_id');
+            $table->string('group');
+            $table->string('room_number');
+            $table->string('gender')->default('Laki-laki');
             $table->timestamps();
-
             // Foreign Key
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('tour_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tours');
+        Schema::dropIfExists('transportations');
     }
 };

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tour;
+use App\Models\Transportation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,6 @@ class TourController extends Controller
     public function index()
     {
         $tours = Tour::all();
-
         return view('backend.pages.tour.index', compact('tours'));
     }
 
@@ -49,7 +49,11 @@ class TourController extends Controller
      */
     public function show(Tour $tour)
     {
-        return view('backend.pages.tour.partials.show', compact('tour'));
+        $transportations = Transportation::where('tour_id', $tour->id)->get();
+        // $hotel = $tour->hotel;
+        // $rundown = $tour->rundown;
+
+        return view('backend.pages.tour.partials.show', compact('tour', 'transportations'));
     }
 
     /**
@@ -57,7 +61,8 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-        return view('backend.pages.tour.partials.edit', compact('tour'));
+        $users = User::all();
+        return view('backend.pages.tour.partials.edit', compact('users', 'tour'));
     }
 
     /**
