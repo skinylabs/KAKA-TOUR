@@ -17,7 +17,7 @@ class TransportationController extends Controller
     {
 
         $transportations = Transportation::all();
-        return view('backend.pages.tour.transportation.index', compact('transportations', 'tour'));
+        return view('backend.pages.tour.pages.transportation.index', compact('transportations', 'tour'));
     }
 
     /**
@@ -25,7 +25,7 @@ class TransportationController extends Controller
      */
     public function create(Tour $tour)
     {
-        return view('backend.pages.tour.transportation.partials.create', compact('tour'));
+        return view('backend.pages.tour.pages.transportation.partials.create', compact('tour'));
     }
 
     /**
@@ -35,10 +35,10 @@ class TransportationController extends Controller
     {
         // Validasi input
         $request->validate([
-            'vehicle' => 'required|string',
-            'name' => 'required|string',
-            'group' => 'required|string',
-            'room_number' => 'required|string',
+            'vehicle' => 'required|string|max:128',
+            'name' => 'required|string|max:128',
+            'group' => 'required|string|max:128',
+            'room_number' => 'required|string|max:128',
         ]);
 
         // Simpan dengan menambahkan tour_id
@@ -62,7 +62,7 @@ class TransportationController extends Controller
         // Import data dari file dengan tour_id dari route
         Excel::import(new TransportationImport($tour->id), $request->file('file'));
 
-        return redirect()->route('tours.show', $tour->id)->with('success', 'Data berhasil diimport.');
+        return redirect()->route('tours.show', $tour->id)->with('success', 'Data Transportasi berhasil diimport.');
     }
 
     /**
@@ -78,7 +78,7 @@ class TransportationController extends Controller
      */
     public function edit(Tour $tour, Transportation $transportation)
     {
-        return view('backend.pages.tour.transportation.partials.edit', compact('transportation', 'tour'));
+        return view('backend.pages.tour.pages.transportation.partials.edit', compact('transportation', 'tour'));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hotel;
+use App\Models\Rundown;
 use App\Models\Tour;
 use App\Models\Transportation;
 use App\Models\User;
@@ -50,10 +52,10 @@ class TourController extends Controller
     public function show(Tour $tour)
     {
         $transportations = Transportation::where('tour_id', $tour->id)->get();
-        // $hotel = $tour->hotel;
-        // $rundown = $tour->rundown;
+        $hotels = Hotel::where('tour_id', $tour->id)->get();
+        $rundowns = Rundown::where('tour_id', $tour->id)->get();
 
-        return view('backend.pages.tour.partials.show', compact('tour', 'transportations'));
+        return view('backend.pages.tour.partials.show', compact('tour', 'transportations', 'hotels', 'rundowns'));
     }
 
     /**

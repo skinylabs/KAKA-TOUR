@@ -26,8 +26,8 @@ class Tour extends Model
         return $this->hasOne(Hotel::class);
     }
 
-    //     public function rundown()
-    //     {
-    //         return $this->hasOne(Rundown::class);
-    //     }
+    public function rundown()
+    {
+        return $this->hasOne(Rundown::class);
+    }
 }

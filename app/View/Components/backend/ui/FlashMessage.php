@@ -1,26 +1,23 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\backend\ui;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Icon extends Component
+class FlashMessage extends Component
 {
-    public $fill;
     public $type;
-    public $width;
-    public $height;
+    public $message;
+
     /**
      * Create a new component instance.
      */
-    public function __construct($type, $fill, $width, $height)
+    public function __construct($type = 'success', $message = '')
     {
         $this->type = $type;
-        $this->fill = $fill;
-        $this->width = $width;
-        $this->height = $height;
+        $this->message = $message;
     }
 
     /**
@@ -28,6 +25,6 @@ class Icon extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.icons.icon');
+        return view('components.backend.ui.flash-message');
     }
 }
